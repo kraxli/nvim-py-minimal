@@ -14,8 +14,11 @@ a simple and minimalistic ipdb (ipython debugger) for neovim
 * ...
 
 ## Key maps
-* <Plug>GoToDebugLine
+* \<Plug\>GoToDebugLine (default gt)??
 * ...
+  
+## Variables
+* g:nvimipdb_key_maps??
 
 ## To Do's / To come
 
