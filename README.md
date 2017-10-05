@@ -22,12 +22,12 @@ a simple and minimalistic ipython (ipdb debugger) interface for neovim
 
 ## Default Key maps
 * (terminal) gt: \<Plug\>GoToDebugLine
-* (normal) <leader>bp: <Plug>SetBreakPoint
-* (normal) <leader>Bp: <Plug>SetBreakPointBelow
-* (normal) <c-s>: <Plug>PySendLine2Repl
-* (visual) <c-s>: <Plug>PySendSelection2Repl
-* (normal) <c-s><c-s>: <Plug>PySendFile2Repl
-* <F5>: <Plug>Ipdb
+* (normal) \<leader\>bp: \<Plug\>SetBreakPoint
+* (normal) \<leader\>Bp: \<Plug\>SetBreakPointBelow
+* (normal) \<c-s\>: \<Plug\>PySendLine2Repl
+* (visual) \<c-s\>: \<Plug\>PySendSelection2Repl
+* (normal) \<c-s\>\<c-s\>: \<Plug\>PySendFile2Repl
+* \<F5\>: \<Plug\>Ipdb
 
 ## Variables
 * let g:nvimipdb_default_keys = 1
