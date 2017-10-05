@@ -97,3 +97,30 @@ function! nvimipdb#GoToDebugLine()
 endfunction
 
 
+function! nvimipdb#DelBreakPoints()
+    :g/\.set_trace()/d
+endfunction
+
+
+function! nvimipdb#ClearBpsFct()
+    :call DelBreakPoints()
+    :w!
+endfunction
+
+
+
+" function! InclBreakPoint()
+"     " let i_numargs = a:0
+
+"     let bp_line = "."
+
+"     " if int(i_numargs) != 0
+"     "   let bp_line = a:1
+"     "   " this could be extended to be a list and then looping over the list to include bp at all lines in the list
+"     " endif
+
+"     append(line(bp_line)-1, "import ipdb; ipdb.set_trace()")
+
+" endfunction
+" map <leader>bp :call  InclBreakPoint()<cr>
+
