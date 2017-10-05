@@ -42,11 +42,5 @@ command! Debug :Ipdb
 command! CloseBuf :bd!
 
 
-" " TODO with <Plug>
-" " MAPS:
-" nnoremap <silent> <m-s> "+yy :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
-" vnoremap <silent> <m-s> "+y :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
-" nnoremap <silent> f<f5> :%y+<cr> :call nvimipdb#send2repl(["\%paste"])<cr>
-
 
 
