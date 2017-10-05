@@ -3,13 +3,14 @@ let g:py_style_pep8 = "'{based_on_style: pep8, spaces_before_comment: 4, split_b
 
 
 " COMMANDS:
-command! ReplSendPyLine call nvimipdb#send2repl([getline('.')])
-command! -range=% ReplSendPyFile silent call nvimipdb#send2repl(getline(<line1>,<line2>))
-command! -range ReplSendPySelection silent call nvimipdb#send2repl(getline(<line1>,<line2>))
+command! ReplSendPyLine call nvimipdb#send2repl([getline('.')])<cr>
+command! -range=% ReplSendPyFile silent call nvimipdb#send2repl(getline(<line1>,<line2>))<cr>
+command! -range ReplSendPySelection silent call nvimipdb#send2repl(getline(<line1>,<line2>))<cr>
 " send visual selection to ipython terminal:
-command! -range ReplSendPy2IPy silent call nvimipdb#send2repl(["\%paste"])
+command! -range ReplSendPy2IPy silent call nvimipdb#send2repl(["\%paste"])<cr>
 
-command!  -range=%  Yapf <line1>,<line2>call yapf#yapf(g:py_style_pep8)
+
+command!  -range=%  Yapf <line1>,<line2>call yapf#yapf(g:py_style_pep8)<cr>
 " map <C-Y> :call yapf#YAPF()<cr>
 " imap <C-Y> <c-o>:call yapf#YAPF()<cr>
 
