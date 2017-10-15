@@ -1,5 +1,5 @@
-# nvimipdb
-a simple and minimalistic ipython (ipdb debugger) interface for neovim
+# minimal-py-nvim
+a simple and minimalistic python pugin for neovim
 
 ## Prerequisites
 * neovim
