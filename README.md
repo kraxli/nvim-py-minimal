@@ -1,4 +1,4 @@
-# minimal-py-nvim
+# nvim-py-minimal
 a simple and minimalistic python pugin for neovim
 
 ## Prerequisites
