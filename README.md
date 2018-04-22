@@ -23,7 +23,7 @@ a simple and minimalistic python pugin for neovim
 ## Key maps
 There are no default keys. Put the following or similar to your init.vim.
 
-> * (terminal) gd: \<Plug\>GoToDebugLine
+> * (terminal) gt: \<Plug\>GoToDebugLine
 > * (normal) \<leader\>bp: \<Plug\>SetBreakPoint
 > * (normal) \<leader\>Bp: \<Plug\>SetBreakPointBelow
 > * (normal) \<c-s\>: \<Plug\>PySendLine2Repl
@@ -35,7 +35,7 @@ There are no default keys. Put the following or similar to your init.vim.
 au FileType python map  <leader>bp <Plug>SetBreakPoint
 au FileType python map  <leader>Bp <Plug>SetBreakPointBelow
 nnoremap <leader>bd :call nvimipdb#DelBreakPoints() " DelBreakPoints
-au TermOpen * nmap <buffer> gd <Plug>GoToDebugLine
+au TermOpen * nmap <buffer> gt <Plug>GoToDebugLine
 au FileType python map <F5> <Plug>Ipdb
 autocmd Filetype python nmap <silent> <c-s> "+yy :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
 autocmd Filetype python vmap <silent> <c-s> "+y :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
