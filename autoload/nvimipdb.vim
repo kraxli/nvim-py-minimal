@@ -6,6 +6,8 @@
 
 let s:nvimpy_path = fnamemodify(expand('<sfile>'), ':p:h:h')
     \ . '/python3'
+let s:debug_line_pattern = "-->"
+let s:error_file_line_indicator = '^\>'
 
 
 python3 << EOF
@@ -28,8 +30,12 @@ EOF
 return lNum
 endfunction
 
-function! s:find_pattern_backw(lnum) "{{{
+function! s:find_pattern_backw(lnum, ...) "{{{
+  " lnum: string - line number
+  " ...: string - pattern to find. Default: '^\>'
+
   let lnum = a:lnum
+  let pattern = a:0 == 2 ? a:2 : s:error_file_line_indicator
   let line = " "
   let line_found = 0
 
@@ -39,14 +45,14 @@ function! s:find_pattern_backw(lnum) "{{{
     endif
 
     let line = getline(lnum)
-    if line =~ "^\>"
+    if line =~ pattern
       "    \ || line =~ '^\S'
       let line_found = 1
 
       " hack to overcome line split problem without checking if the string contains a real file path
       " best would be to join all adjoint lines starting with a > (to do in python)
       " but hack works
-      if line_above =~ "^\>"
+      if line_above =~ pattern
        let line = line_above
       endif
       " end of hack
@@ -55,7 +61,20 @@ function! s:find_pattern_backw(lnum) "{{{
     endif
     let lnum -= 1
   endwhile
+
+  if line =~ ' ' || line =~ "" || line != pattern
+    let line = expand('#:p')
+  endif
+
   return line
+
+  "https://vi.stackexchange.com/questions/5484/get-the-current-window-buffer-tabpage-in-vimscript
+  " current_win = vim.current.window
+  " let current_win = winnr()
+
+  " current_buff = vim.current.buffer
+  " let current_buff = bufnr("%")
+
 endfunction "}}}
 
 
@@ -66,7 +85,11 @@ let filename_line = <SID>find_pattern_backw(line('.'))
 python3 << EOF
 try:
   line = vim.eval("filename_line")
-  _filename = line.split(" ")[1].split("(")[0]
+  if " " in line:
+    _filename = line.split(" ")[1].split("(")[0]
+  else:
+    _filename = line
+
   vim.command("let filename = " + "'" + _filename + "'")
 except:
   vim.command("let filename = " + "'" + " " + "'")
@@ -90,6 +113,7 @@ endfunction
 
 
 function! nvimipdb#GoToDebugLine()
+    execute "?".s:debug_line_pattern
     let l:debug_file_info = nvimipdb#debug_file_information()
     " call nvim_feedkeys("\<c-w>h", "normal", 0)
     execute "normal \<c-w>h"
