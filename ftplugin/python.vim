@@ -24,11 +24,14 @@ command! PyRun AsyncRun python3 %:p
 
 
 augroup nvimipdbGroup
-    autocmd BufRead,BufEnter,BufNewFile *.py,*.python :command! IPython2 
-      \ :vsp term://ipython | let g:last_ipy_terminal_job_id = b:terminal_job_id
-    autocmd BufRead,BufEnter,BufNewFile *.py,*.python :command! IPython3 
-      \ :vsp term://ipython3 | let g:last_ipy_terminal_job_id = b:terminal_job_id
+    autocmd BufRead,BufEnter,BufNewFile *.py,*.python :command! IPython2
+      \ :vsp term\://ipython | let g:last_ipy_terminal_job_id = b:terminal_job_id
+    autocmd BufRead,BufEnter,BufNewFile *.py,*.python :command! IPython3
+      \ :vsp term\://ipython3 | let g:last_ipy_terminal_job_id = b:terminal_job_id
 augroup END
+
+command! IPython IPython3
+
 
 
 " command! Ipdb :vsp term://python3 expand("%:p")
