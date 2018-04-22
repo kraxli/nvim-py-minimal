@@ -17,7 +17,9 @@ augroup nvimipdbGroup
     " nmap gt <Plug>OpenLeftDebugFile
     " nmap gt :OpenLeftDebugFile<cr>
     " au TermOpen * nmap <buffer> gt :OpenLeftDebugFile<cr>
-    au TermOpen * nmap <buffer> gt :call nvimipdb#GoToDebugLine()<cr> "<Plug>GoToDebugLine
+    "
+    au TermOpen * nmap <buffer> gt <Plug>GoToDebugLine
+    " au TermOpen * nmap <buffer> gt :call nvimipdb#GoToDebugLine()<cr> 
 
     au FileType python map <F5> <Plug>Ipdb
 
