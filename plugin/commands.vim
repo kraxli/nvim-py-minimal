@@ -13,7 +13,7 @@ vnoremap <silent> <Plug>ReplSendPySelection ReplSendPySelection<cr>
 vnoremap <silent> <Plug>ReplSendPy2IPy ReplSendPy2IPy<cr>
 nnoremap <silent> <Plug>IPython2 IPython2<cr>
 nnoremap <silent> <Plug>IPython3 IPython3<cr>
-noremap <silent> <Plug>Ipdb Ipdb<cr>
+noremap <silent> <Plug>Ipdb :execute("Ipdb")<cr>
 
 noremap <silent> <Plug>SetBreakPoint Oimport ipdb; ipdb.set_trace()<esc>
 noremap <silent> <Plug>SetBreakPointBelow oimport ipdb; ipdb.set_trace()<esc>
