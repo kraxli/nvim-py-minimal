@@ -141,8 +141,8 @@ function! nvimipdb#GoToDebugLine()
     " last buffer number
     " execute "normal :b".bufnr('#')
 
-    " last window number (like ctrl-w p)
     if !exists('g:parent_win')
+      " last window number (like ctrl-w p)
       let g:parent_win =  winnr('#') 
     endif
     execute "normal ".g:parent_win."\<c-w>w"
