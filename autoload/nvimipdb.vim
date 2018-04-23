@@ -40,7 +40,9 @@ function! s:find_pattern_backw(lnum, ...) "{{{
   let line = " "
   let line_found = 0
 
-  let g:ipy_parent_buffer = expand('#:p')
+  if !exists('g:ipy_parent_buffer')
+    let g:ipy_parent_buffer = expand('#:p')
+  endif
 
   while lnum > 1
     if lnum > 1
@@ -140,8 +142,10 @@ function! nvimipdb#GoToDebugLine()
     " execute "normal :b".bufnr('#')
 
     " last window number (like ctrl-w p)
-    let l:previous_win =  winnr('#') 
-    execute "normal ".l:previous_win."\<c-w>w"
+    if !exists('g:parent_win')
+      let g:parent_win =  winnr('#') 
+    endif
+    execute "normal ".g:parent_win."\<c-w>w"
     " -----------------------------------------
 
     execute "edit" . fnameescape(l:debug_file_info[0]) . "|" . l:debug_file_info[1]
