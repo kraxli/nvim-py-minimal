@@ -6,7 +6,8 @@
 
 let s:nvimpy_path = fnamemodify(expand('<sfile>'), ':p:h:h')
     \ . '/python3'
-let s:debug_line_pattern = "-->"
+let s:debug_line_pattern = "---->"
+"-\+>
 let s:error_file_line_indicator = '^\>'
 
 
@@ -39,6 +40,8 @@ function! s:find_pattern_backw(lnum, ...) "{{{
   let line = " "
   let line_found = 0
 
+  let g:ipy_parent_buffer = expand('#:p')
+
   while lnum > 1
     if lnum > 1
       let line_above = getline(lnum-1)
@@ -63,7 +66,7 @@ function! s:find_pattern_backw(lnum, ...) "{{{
   endwhile
 
   if line =~ ' ' || line =~ "" || line != pattern
-    let line = expand('#:p')
+    let line = g:ipy_parent_buffer
   endif
 
   return line
@@ -113,11 +116,36 @@ endfunction
 
 
 function! nvimipdb#GoToDebugLine()
+
+    " jump to line in termnal with the previous error pattern
     execute "?".s:debug_line_pattern
+
+    " get the error code line and file information
+    let l:pattern_error_code = s:debug_line_pattern.'\s*\d\+\s\+\zs.*'
+
+    let l:error_line_code =  matchstr(getline('.'), l:pattern_error_code)
     let l:debug_file_info = nvimipdb#debug_file_information()
+
+    " jump to line 1 and search for the error line:
+    let l:debug_file_info[1] = 1
+
+    " -----------------------------------------
+    " --- jump to previous buffer / window ---
+    " -----------------------------------------
     " call nvim_feedkeys("\<c-w>h", "normal", 0)
-    execute "normal \<c-w>h"
+    " execute "normal \<c-w>h"
+
+    " https://vi.stackexchange.com/questions/5484/get-the-current-window-buffer-tabpage-in-vimscript
+    " last buffer number
+    " execute "normal :b".bufnr('#')
+
+    " last window number (like ctrl-w p)
+    let l:previous_win =  winnr('#') 
+    execute "normal ".l:previous_win."\<c-w>w"
+    " -----------------------------------------
+
     execute "edit" . fnameescape(l:debug_file_info[0]) . "|" . l:debug_file_info[1]
+    execute "/\\V".l:error_line_code
 endfunction
 
 
