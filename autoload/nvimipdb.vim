@@ -6,7 +6,7 @@
 
 let s:nvimpy_path = fnamemodify(expand('<sfile>'), ':p:h:h')
     \ . '/python3'
-let s:debug_line_pattern = "---->"
+let s:debug_line_pattern = '-\+>' 
 "-\+>
 let s:error_file_line_indicator = '^\>'
 
@@ -121,6 +121,9 @@ function! nvimipdb#GoToDebugLine()
 
     " jump to line in termnal with the previous error pattern
     execute "?".s:debug_line_pattern
+
+    " the follwing is used if s:debug_line_pattern uses "-quotes instead of '
+    " execute "?".substitute(s:debug_line_pattern, "\+", "\\\\+", "g")
 
     " get the error code line and file information
     let l:pattern_error_code = s:debug_line_pattern.'\s*\d\+\s\+\zs.*'
