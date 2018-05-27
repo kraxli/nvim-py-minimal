@@ -2,13 +2,16 @@
 " if !exists("g:nvimipdb_default_keys")
     " let g:nvimipdb_default_keys = 1
 " endif
+"
+
+command! PySendFile2Repl :%y+<cr> :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
 
 
 nnoremap <silent> <Plug>GoToDebugLine :call nvimipdb#GoToDebugLine()<cr>
 nnoremap <silent> <unique> <Plug>OpenDebugFile :call nvimipdb#OpenDebugFile()<cr>
 
 " nnoremap <silent> <Plug>ReplSendPyLine ReplSendPyLine
-" nnoremap <silent> <Plug>ReplSendPyFile ReplSendPyFile
+nnoremap <silent> <Plug>PySendFile2Repl PySendFile2Repl
 vnoremap <silent> <Plug>ReplSendPySelection ReplSendPySelection<cr>
 vnoremap <silent> <Plug>ReplSendPy2IPy ReplSendPy2IPy<cr>
 nnoremap <silent> <Plug>IPython2 IPython2<cr>
