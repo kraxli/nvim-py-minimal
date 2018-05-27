@@ -26,11 +26,10 @@ augroup nvimipdbGroup
     autocmd BufRead,BufEnter,BufNewFile *.py,*.python :command! IPython3
       \ :vsp term\://ipython3 | let g:last_ipy_terminal_job_id = b:terminal_job_id
 
-
-    autocmd Filetype python nnoremap <silent> ;e "+yy :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
-    autocmd Filetype python vnoremap <silent> ;e "+y :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
-autocmd Filetype python nnoremap <silent> ;E :%y+<cr> :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
-    " 
+    autocmd Filetype python nnoremap <silent> ;p "+yy :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+    autocmd Filetype python vnoremap <silent> ;p "+y :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+autocmd Filetype python nnoremap <silent> ;P :%y+<cr> :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+     
     " autocmd Filetype python nmap <silent> <c-s> <Plug>PySendLine2Repl
     " autocmd Filetype python vmap <silent> <c-s> <Plug>PySendSelection2Repl
     " autocmd Filetype python nmap <silent> <c-s><c-s> <Plug>PySendFile2Repl
