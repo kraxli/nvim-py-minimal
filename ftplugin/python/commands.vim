@@ -1,33 +1,51 @@
 
-" if !exists("g:nvimipdb_default_keys")
-    " let g:nvimipdb_default_keys = 1
-" endif
-"
-
-command! PySendFile2Repl :%y+<cr> :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
 
 
-nnoremap <silent> <Plug>GoToDebugLine :call nvimipdb#GoToDebugLine()<cr>
-nnoremap <silent> <unique> <Plug>OpenDebugFile :call nvimipdb#OpenDebugFile()<cr>
+" COMMANDS:
+command! PySendLine silent call nvimipdb#send2repl([getline('.')])
 
-" nnoremap <silent> <Plug>ReplSendPyLine ReplSendPyLine
-nnoremap <silent> <Plug>PySendFile2Repl PySendFile2Repl
-vnoremap <silent> <Plug>ReplSendPySelection ReplSendPySelection<cr>
-vnoremap <silent> <Plug>ReplSendPy2IPy ReplSendPy2IPy<cr>
-nnoremap <silent> <Plug>IPython2 IPython2<cr>
-nnoremap <silent> <Plug>IPython3 IPython3<cr>
-noremap <silent> <Plug>Ipdb :execute("Ipdb")<cr>
+" command! -range ReplSendPySelection silent call nvimipdb#send2repl(getline(<line1>,<line2>))
+command! -range PySendSelection silent call nvimipdb#py_selection_to_repl()
 
-noremap <silent> <Plug>SetBreakPoint Oimport ipdb; ipdb.set_trace()<esc>
-noremap <silent> <Plug>SetBreakPointBelow oimport ipdb; ipdb.set_trace()<esc>
+" command! -range=% ReplSendPyFile silent call nvimipdb#send2repl(getline(<line1>,<line2>))<cr>
+command! PySendFile silent call nvimipdb#py_send_file_to_repl()
 
-nnoremap <silent> <Plug>DelBreakPoints nvimipdb#DelBreakPoints()
+" send visual selection to ipython terminal:
+" command! -range ReplSendPy2IPy silent call nvimipdb#send2repl(["\%paste"])<cr>
+
+command!  -range=%  Yapf <line1>,<line2>call yapf#yapf(g:py_style_pep8)<cr>
+" map <C-Y> :call yapf#YAPF()<cr>
+" imap <C-Y> <c-o>:call yapf#YAPF()<cr>
+
+" autocmd! BufNewFile,BufRead *.py,*.python :command! -nargs=1 InclBp  :call InclBreakPoint(<f-args>)<cr>
+command! ClearBps :call nvimipdb#ClearBpsFct()<cr>
+
+" the follwoing errorformat works for AsyncRun python %:p
+setlocal efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]
+command! PyRun AsyncRun python3 %:p
+" setlocal efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 
 
-" " TODO with <Plug>
-" " MAPS:
-" nnoremap <silent> <m-s> "+yy :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
-" vnoremap <silent> <m-s> "+y :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
-" nnoremap <silent> f<f5> :%y+<cr> :call nvimipdb#send2repl(["\%paste"])<cr>
+autocmd BufRead,BufEnter,BufNewFile *.py,*.python :command! IPython2
+  \ :let g:parent_win =  winnr() |
+  \ vsp term\://ipython | let g:last_ipy_terminal_job_id = b:terminal_job_id |
+  \ execute "normal ".g:parent_win."\<c-w>w"
+autocmd BufRead,BufEnter,BufNewFile *.py,*.python :command! IPython3
+  \ :let g:parent_win =  winnr() |
+  \ vsp term\://ipython3 |
+  \ let g:last_ipy_terminal_job_id = b:terminal_job_id |
+  \ execute "normal ".g:parent_win."\<c-w>w"
 
+command! IPython IPython3
+
+" command! Ipdb :vsp term://python3 expand("%:p")
+command! Ipdb
+    \ :let current_file = expand("%:p")
+    \ | vsp +term
+    \ | silent call nvimipdb#send2repl(["python3 ".current_file])
+    " \ | let g:last_ipy_terminal_job_id = b:terminal_job_id
+    " \ | let g:last_ipdb_terminal_job_id = b:terminal_job_id
+
+command! Debug :Ipdb
+command! CloseBuf :bd!
 

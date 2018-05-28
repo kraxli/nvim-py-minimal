@@ -6,7 +6,7 @@
 
 let s:nvimpy_path = fnamemodify(expand('<sfile>'), ':p:h:h')
     \ . '/python3'
-let s:debug_line_pattern = '-\+>' 
+let s:debug_line_pattern = '-\+>'
 "-\+>
 let s:error_file_line_indicator = '^\>'
 
@@ -111,6 +111,31 @@ function! nvimipdb#send2repl(lines, ...)
 endfunction
 
 
+" autocmd Filetype python nnoremap <silent> ;pf :%y+<cr> :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+function! nvimipdb#py_send_file_to_repl()
+    " execute '%y+'
+    %y+
+    call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) | let g:ipy_parent_buffer=expand('%:p') | let g:parent_win = winnr()
+endfunction
+
+" autocmd Filetype python nmap <silent> <c-s> "+yy | call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+function! nvimipdb#py_send_line_to_repl()
+    " execute 'normal "+yy'
+    normal yy+
+    call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id)
+    let g:ipy_parent_buffer=expand('%:p')
+    let g:parent_win = winnr()
+endfunction
+
+" autocmd Filetype python vmap <silent> <c-s> "+y :call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+function! nvimipdb#py_selection_to_repl()
+    *y+
+    call nvimipdb#send2repl(["\%paste"], g:last_ipy_terminal_job_id)
+    let g:ipy_parent_buffer=expand('%:p')
+    let g:parent_win = winnr()
+endfunction
+
+
 function! nvimipdb#OpenDebugFile()
     let l:debug_file_info = nvimipdb#debug_file_information()
     execute "edit " . fnameescape(l:debug_file_info[0]) . "|" . l:debug_file_info[1]
@@ -146,7 +171,7 @@ function! nvimipdb#GoToDebugLine()
 
     if !exists('g:parent_win')
       " last window number (like ctrl-w p)
-      let g:parent_win =  winnr('#') 
+      let g:parent_win =  winnr('#')
     endif
     execute "normal ".g:parent_win."\<c-w>w"
     " -----------------------------------------
@@ -158,14 +183,8 @@ endfunction
 
 function! nvimipdb#DelBreakPoints()
     :g/\.set_trace()/d
-endfunction
-
-
-function! nvimipdb#ClearBpsFct()
-    :call DelBreakPoints()
     :w!
 endfunction
-
 
 
 " function! InclBreakPoint()

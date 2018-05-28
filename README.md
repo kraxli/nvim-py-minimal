@@ -50,3 +50,5 @@ autocmd Filetype python nnoremap <silent> <c-s><c-s> :%y+<cr> :call nvimipdb#sen
 
 ## To Do's / To come
 
+* scroll terminal automatically down after send/pasting code
+
