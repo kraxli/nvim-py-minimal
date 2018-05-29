@@ -138,7 +138,16 @@ endfunction
 
 function! minpy#OpenDebugFile()
     let l:debug_file_info = minpy#debug_file_information()
+    if !exists('g:parent_win')
+      " last window number (like ctrl-w p)
+      let g:parent_win =  winnr('#')
+    endif
+    execute "normal ".g:parent_win."\<c-w>w"
+
+    " execute "edit! " . fnameescape(l:debug_file_info[0]) . "|" . l:debug_file_info[1]
+    silent execute "write " . fnameescape(l:debug_file_info[0])
     execute "edit " . fnameescape(l:debug_file_info[0]) . "|" . l:debug_file_info[1]
+
 endfunction
 
 
