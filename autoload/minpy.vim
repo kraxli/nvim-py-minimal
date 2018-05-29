@@ -83,7 +83,7 @@ function! s:find_pattern_backw(lnum, ...) "{{{
 endfunction "}}}
 
 
-function! pymin#debug_file_information()
+function! minpy#debug_file_information()
 let pyfile_line_num = <SID>get_python_file_line_number()
 let filename_line = <SID>find_pattern_backw(line('.'))
 
@@ -104,45 +104,45 @@ return [filename, pyfile_line_num]
 endfunction
 
 
-function! pymin#send2repl(lines, ...)
+function! minpy#send2repl(lines, ...)
    " type(a:lines) == 3	  => list
    let l:terminal_id = a:0 > 0 ? a:1 : g:last_terminal_job_id
    call jobsend(l:terminal_id, add(a:lines, ''))
 endfunction
 
 
-" autocmd Filetype python nnoremap <silent> ;pf :%y+<cr> :call pymin#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
-function! pymin#py_send_file_to_repl()
+" autocmd Filetype python nnoremap <silent> ;pf :%y+<cr> :call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+function! minpy#py_send_file_to_repl()
     " execute '%y+'
     %y+
-    call pymin#send2repl(["\%paste"], g:last_ipy_terminal_job_id) | let g:ipy_parent_buffer=expand('%:p') | let g:parent_win = winnr()
+    call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id) | let g:ipy_parent_buffer=expand('%:p') | let g:parent_win = winnr()
 endfunction
 
-" autocmd Filetype python nmap <silent> <c-s> "+yy | call pymin#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
-function! pymin#py_send_line_to_repl()
+" autocmd Filetype python nmap <silent> <c-s> "+yy | call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+function! minpy#py_send_line_to_repl()
     " execute 'normal "+yy'
     normal yy+
-    call pymin#send2repl(["\%paste"], g:last_ipy_terminal_job_id)
+    call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id)
     let g:ipy_parent_buffer=expand('%:p')
     let g:parent_win = winnr()
 endfunction
 
-" autocmd Filetype python vmap <silent> <c-s> "+y :call pymin#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
-function! pymin#py_selection_to_repl()
+" autocmd Filetype python vmap <silent> <c-s> "+y :call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id) \| let g:ipy_parent_buffer=expand('%:p') \| let g:parent_win = winnr()<cr>
+function! minpy#py_selection_to_repl()
     *y+
-    call pymin#send2repl(["\%paste"], g:last_ipy_terminal_job_id)
+    call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id)
     let g:ipy_parent_buffer=expand('%:p')
     let g:parent_win = winnr()
 endfunction
 
 
-function! pymin#OpenDebugFile()
-    let l:debug_file_info = pymin#debug_file_information()
+function! minpy#OpenDebugFile()
+    let l:debug_file_info = minpy#debug_file_information()
     execute "edit " . fnameescape(l:debug_file_info[0]) . "|" . l:debug_file_info[1]
 endfunction
 
 
-function! pymin#GoToDebugLine()
+function! minpy#GoToDebugLine()
 
     " jump to line in termnal with the previous error pattern
     execute "?".s:debug_line_pattern
@@ -154,7 +154,7 @@ function! pymin#GoToDebugLine()
     let l:pattern_error_code = s:debug_line_pattern.'\s*\d\+\s\+\zs.*'
 
     let l:error_line_code =  matchstr(getline('.'), l:pattern_error_code)
-    let l:debug_file_info = pymin#debug_file_information()
+    let l:debug_file_info = minpy#debug_file_information()
 
     " jump to line 1 and search for the error line:
     let l:debug_file_info[1] = 1
@@ -181,7 +181,7 @@ function! pymin#GoToDebugLine()
 endfunction
 
 
-function! pymin#DelBreakPoints()
+function! minpy#DelBreakPoints()
     :g/\.set_trace()/d
     :w!
 endfunction
