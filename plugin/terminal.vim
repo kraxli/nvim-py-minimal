@@ -1,9 +1,9 @@
 
 
-command! OpenDebugFile :call nvimipdb#OpenDebugFile()
-command! OpenLeftDebugFile :call nvimipdb#OpenLeftDebugFile()
+command! OpenDebugFile :call minpy#OpenDebugFile()
+command! OpenLeftDebugFile :call minpy#OpenLeftDebugFile()
 
-augroup nvimipdbTerminal
+augroup minpyTerminal
     au!
     au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
 augroup END

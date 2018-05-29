@@ -2,23 +2,23 @@
 
 
 " COMMANDS:
-command! PySendLine silent call nvimipdb#send2repl([getline('.')])
+command! PySendLine silent call minpy#send2repl([getline('.')])
 
-" command! -range ReplSendPySelection silent call nvimipdb#send2repl(getline(<line1>,<line2>))
-command! -range PySendSelection silent call nvimipdb#py_selection_to_repl()
+" command! -range ReplSendPySelection silent call minpy#send2repl(getline(<line1>,<line2>))
+command! -range PySendSelection silent call minpy#py_selection_to_repl()
 
-" command! -range=% ReplSendPyFile silent call nvimipdb#send2repl(getline(<line1>,<line2>))<cr>
-command! PySendFile silent call nvimipdb#py_send_file_to_repl()
+" command! -range=% ReplSendPyFile silent call minpy#send2repl(getline(<line1>,<line2>))<cr>
+command! PySendFile silent call minpy#py_send_file_to_repl()
 
 " send visual selection to ipython terminal:
-" command! -range ReplSendPy2IPy silent call nvimipdb#send2repl(["\%paste"])<cr>
+" command! -range ReplSendPy2IPy silent call minpy#send2repl(["\%paste"])<cr>
 
 command!  -range=%  Yapf <line1>,<line2>call yapf#yapf(g:py_style_pep8)<cr>
 " map <C-Y> :call yapf#YAPF()<cr>
 " imap <C-Y> <c-o>:call yapf#YAPF()<cr>
 
 " autocmd! BufNewFile,BufRead *.py,*.python :command! -nargs=1 InclBp  :call InclBreakPoint(<f-args>)<cr>
-command! ClearBps :call nvimipdb#ClearBpsFct()<cr>
+command! ClearBps :call minpy#ClearBpsFct()<cr>
 
 " the follwoing errorformat works for AsyncRun python %:p
 setlocal efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]
@@ -42,7 +42,7 @@ command! IPython IPython3
 command! Ipdb
     \ :let current_file = expand("%:p")
     \ | vsp +term
-    \ | silent call nvimipdb#send2repl(["python3 ".current_file])
+    \ | silent call minpy#send2repl(["python3 ".current_file])
     " \ | let g:last_ipy_terminal_job_id = b:terminal_job_id
     " \ | let g:last_ipdb_terminal_job_id = b:terminal_job_id
 
