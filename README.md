@@ -51,5 +51,6 @@ autocmd Filetype python nnoremap <silent> <c-s><c-s> :%y+<cr> :call minpy#send2r
 ## To Do's / To come (TODO)
 
 * scroll terminal automatically down after send/pasting code
+  * https://stackoverflow.com/questions/17751700/vim-automatic-scroll-buffer
 * delete break points in all files belonging to the project
 
