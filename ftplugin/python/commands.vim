@@ -13,7 +13,7 @@ command! PySendFile silent call minpy#py_send_file_to_repl()
 " send visual selection to ipython terminal:
 " command! -range ReplSendPy2IPy silent call minpy#send2repl(["\%paste"])<cr>
 
-command!  -range=%  Yapf <line1>,<line2>call yapf#yapf(g:py_style_pep8)<cr>
+command!  -range=%  Yapf <line1>,<line2>call yapf#yapf(g:minpy_style_pep8)<cr>
 " map <C-Y> :call yapf#YAPF()<cr>
 " imap <C-Y> <c-o>:call yapf#YAPF()<cr>
 
