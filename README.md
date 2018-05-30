@@ -48,7 +48,8 @@ autocmd Filetype python nnoremap <silent> <c-s><c-s> :%y+<cr> :call minpy#send2r
 * setlocal efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ] (used for PyRun)
 
 
-## To Do's / To come
+## To Do's / To come (TODO)
 
 * scroll terminal automatically down after send/pasting code
+* delete break points in all files belonging to the project
 
