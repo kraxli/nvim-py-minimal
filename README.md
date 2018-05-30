@@ -5,6 +5,7 @@ a simple and minimalistic python pugin for neovim
 * neovim
 * ipdb (install for example by pip install ipdb)
 * yapf
+* python-tk (to paste to terminal)
 * async (later on neomake)
 
 ## Commands
