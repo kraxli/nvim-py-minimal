@@ -27,9 +27,9 @@ There are no default keys. Put the following or similar to your init.vim.
 > * (terminal) gt: \<Plug\>GoToDebugLine
 > * (normal) \<leader\>bp: \<Plug\>SetBreakPoint
 > * (normal) \<leader\>Bp: \<Plug\>SetBreakPointBelow
-> * (normal) \<c-s\>: \<Plug\>PySendLine2Repl
-> * (visual) \<c-s\>: \<Plug\>PySendSelection2Repl
-> * (normal) \<c-s\>\<c-s\>: \<Plug\>PySendFile2Repl
+> * (normal) \<c-e\>: \<Plug\>PySendLine2Repl
+> * (visual) \<c-e\>: \<Plug\>PySendSelection2Repl
+> * (normal) \<c-e\>\<c-e\>: \<Plug\>PySendFile2Repl
 > * \<F5\>: \<Plug\>Ipdb
 
 ```viml
@@ -38,9 +38,9 @@ au FileType python map  <leader>Bp <Plug>SetBreakPointBelow
 nnoremap <leader>bd :call minpy#DelBreakPoints() " DelBreakPoints
 au TermOpen * nmap <buffer> gt <Plug>GoToDebugLine
 au FileType python map <F5> <Plug>Ipdb
-autocmd Filetype python nmap <silent> <c-s> "+yy :call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
-autocmd Filetype python vmap <silent> <c-s> "+y :call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
-autocmd Filetype python nnoremap <silent> <c-s><c-s> :%y+<cr> :call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
+autocmd Filetype python nmap <silent> <c-e> "+yy :call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
+autocmd Filetype python vmap <silent> <c-e> "+y :call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
+autocmd Filetype python nnoremap <silent> <c-e><c-e> :%y+<cr> :call minpy#send2repl(["\%paste"], g:last_ipy_terminal_job_id)<cr>
 ```
 
 ## Variables
