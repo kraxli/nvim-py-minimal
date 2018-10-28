@@ -17,7 +17,8 @@ a simple and minimalistic python pugin for neovim
 * ClearBps
 * PyRun (Async required - vim package)
 * IPython2
-* Ipython3
+* IPython3
+* IPython (calls python3)
 * IPdb / Debug
 * CloseBuf
 
