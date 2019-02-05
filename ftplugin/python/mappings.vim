@@ -26,7 +26,7 @@ augroup minpyGroup
     au TermOpen * nmap <buffer> gl <Plug>GoToDebugLine
     " au TermOpen * nmap <buffer> gt :call minpy#GoToDebugLine()<cr> 
 
-    au FileType python map <F5> <Plug>Ipdb
+    " au FileType python map <F5> <Plug>Ipdb
 
     autocmd BufRead,BufEnter,BufNewFile *.py,*.python :command! IPython3
       \ :vsp term\://ipython3 | let g:last_ipy_terminal_job_id = b:terminal_job_id
